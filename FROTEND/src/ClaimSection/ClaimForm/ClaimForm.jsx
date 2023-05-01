@@ -2,8 +2,9 @@ import React from "react";
 import './ClaimForm.css'
 import { TextField, Button } from "@mui/material";
 import axios from 'axios'
-import { useParams } from "react-router-dom";
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import { Navigate } from 'react-router-dom'
 
 class ClaimForm extends React.Component {
 
@@ -57,23 +58,38 @@ class ClaimForm extends React.Component {
       brand: brandInputText,
       itemDescription: descriptionInputText,
       catagory: catagoryInputText,
-      subCatagory: subCatagoryInputText
+      subCatagory: subCatagoryInputText,
+      check: false
     }
     console.log(claimedUserData)
 
     axios.post('http://localhost:8000/claim', claimedUserData)
-      .then((res) => {
-        console.log(res)
+      .then(async (res) => {
+        // alert("CLAIM SAVED SUCCESSFULLY!!")
+
+        console.log(res);
+        // this.setState({check:true})
+        toast.success('Claim Submitted Succesfully!!!', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 2000,
+          toastId: "tostSuccess"
+        })
+        setTimeout(() => { this.setState({ check: true }) }, 3000)
       })
       .catch((error) => {
         console.log(error)
+        toast.error('Some Error Occured!!!', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 3000,
+          toastId: "tostError"
+        })
       })
 
   }
   render() {
 
-    const { nameInputText, emailInputText, brandInputText, placeOfLostInputText, descriptionInputText, phoneNumberInputText, colorInputText } = this.state;
-
+    const { nameInputText, emailInputText, brandInputText, check, descriptionInputText, phoneNumberInputText, colorInputText } = this.state;
+    console.log('ahslkdjfhlaskdjhlaskdjfhaaa')
     let emptyFieldError = (nameInputText.length === 0 || emailInputText.length === 0 || brandInputText.length === 0 || descriptionInputText.length === 0 || phoneNumberInputText.length === 0 || colorInputText.length === 0)
 
     return (<>
@@ -157,6 +173,8 @@ class ClaimForm extends React.Component {
 
         </div>
       </div >
+      {check && <Navigate to='/home' />}
+      <ToastContainer />
     </>)
   }
 

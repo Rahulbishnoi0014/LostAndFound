@@ -20,7 +20,7 @@ class NavBar extends React.Component {
                         LOST AND FOUND
                     </div>
                     <div id="about-us" className='navBarItems'>
-                        <Link to='/'><button className="aboutUsButton">Home</button></Link>
+                        <Link to='/home'><button className="aboutUsButton">Home</button></Link>
                     </div>
                 </div>
             </div>

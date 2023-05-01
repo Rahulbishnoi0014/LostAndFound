@@ -4,6 +4,7 @@ import AddedCard from './Card/AddedCard'
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { Navigate } from 'react-router-dom';
 import { InputAdornment, TextField, MenuItem } from "@mui/material";
 import NavBar from '../NavBar/NavBar'
 import axios from 'axios'
@@ -12,17 +13,39 @@ class ViewAllCards extends React.Component {
         super(props)
         this.state = {
             data: [],
-            catagoryInputText: ''
+            catagoryInputText: '',
+            goToLogin: false,
         }
     }
 
 
     componentDidMount() {
-        axios.get('http://localhost:8000/item').then(res => this.setState({ data: res.data })).catch((er) => console.log(er))
+        const token = localStorage.getItem('token');
+        if (token !== null) {
+            axios.get('http://localhost:8000/verifyToken', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+                .then((res) => {
+                    axios.get('http://localhost:8000/item').then(res => {
+                        console.log("asdas=>", res.data); this.setState({ data: res.data })
+                    }).catch((er) => console.log(er))
+
+                })
+                .catch((err) => {
+                    console.log(err)
+                    this.setState({ goToLogin: true })
+                })
+        }
+        else {
+            this.setState({ goToLogin: true })
+        }
+
     }
 
     render() {
-        const { catagoryInputText } = this.state
+        const { catagoryInputText, goToLogin } = this.state
         return (<>
             <NavBar />
             <h1 style={{
@@ -63,7 +86,7 @@ class ViewAllCards extends React.Component {
 
 
             </div>
-
+            {goToLogin && <Navigate to='/' />}
         </>)
     }
 }

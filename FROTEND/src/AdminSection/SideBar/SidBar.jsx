@@ -2,15 +2,9 @@ import React, { Component } from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom'
-// import List from '@mui/material/List';
-// import Divider from '@mui/material/Divider';
-// import ListItem from '@mui/material/ListItem';
-// import ListItemButton from '@mui/material/ListItemButton';
-// import ListItemIcon from '@mui/material/ListItemIcon';
-// import ListItemText from '@mui/material/ListItemText';
-// import InboxIcon from '@mui/icons-material/MoveToInbox';
-// import MailIcon from '@mui/icons-material/Mail';
+import { Link, Navigate } from 'react-router-dom'
+import AdminImg from '../../Images/ADMIN.jpg'
+
 
 class SideBar extends Component {
     constructor(props) {
@@ -20,6 +14,7 @@ class SideBar extends Component {
             left: false,
             bottom: false,
             right: false,
+            goToLogin: false,
         };
     }
 
@@ -37,12 +32,6 @@ class SideBar extends Component {
 
     render() {
 
-        const profile = () => {
-            return <>
-
-
-            </>
-        }
 
         const list = (anchor) => (
             <Box
@@ -52,18 +41,27 @@ class SideBar extends Component {
                 onKeyDown={this.toggleDrawer(anchor, false)}
             >
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                    <h1 style={{ color: "#49386b" }}>MENU</h1>
-                    <br /><br />
+                    <div id='adminImg' style={{ height: '100px', color: "#49386b", margin: "50px 0 100px 0", }}>
+                        <img src={AdminImg} alt="" height='150px' style={{ borderRadius: "10vw", backgroundColor: "red" }} />
+                    </div>
+
+                    <br />
                     <Link to="/addItem"><Button>Add New Item</Button></Link>
                     <br />
                     <Link to="/viewAllItems"><Button>View All Items </Button></Link>
                     <br />
                     <Link to='/claims'><Button>View All Claims</Button></Link>
-
+                    <Button style={{ margin: "20vh 0 0 0", backgroundColor: 'red', color: "white" }} onClick={() => {
+                        this.setState({ goToLogin: true });
+                        console.log("logg");
+                        window.location.reload()
+                        localStorage.clear();
+                    }}>Logout</Button>
                 </div>
 
             </Box>
         );
+        const { goToLogin } = this.state
 
         return (
             <div style={{ backgroundColor: "ButtonShadow" }}>
@@ -81,6 +79,7 @@ class SideBar extends Component {
                         </SwipeableDrawer>
                     </React.Fragment>
                 ))}
+                {goToLogin && <Navigate to='/' />}
             </div>
         );
     }

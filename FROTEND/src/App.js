@@ -8,6 +8,7 @@ import ClaimHomePage from './ClaimSection/ClaimHomePage/ClaimHomePage';
 import AddNewItem from './AdminSection/AddNewItem/AddNewItem';
 import ViewAllCards from './AdminSection/AlllItemsReported/ViewAllCards';
 import Claims from './AdminSection/ClaimsDone/Claims';
+// import Login from './AdminSection/LoginForm/Login';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
       <header className="App-header">
 
         <Routes>
-          <Route path='/' element={< Home />}></Route>
+          <Route path='/' element={< Login />}></Route>
+          <Route path='/home' element={< Home />}></Route>
           <Route path='/login' element={< Login />}></Route>
           <Route path='/place/:at' element={<ItemsHome />}></Route>
           <Route path='/claimSection/:place/:catagory/:subCatagory' element={<ClaimHomePage />}></Route>

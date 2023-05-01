@@ -1,20 +1,14 @@
 import React from 'react'
 import NavBar from '../NavBar/NavBar'
-import Card from '../ItemsByPlace/ItemsHome/Card/Card';
+
 import './Home.css'
-import ItemsHome from '../ItemsByPlace/ItemsHome/ItemsHome'
-import ClaimForm from '../ClaimSection/ClaimForm/ClaimForm'
-import ClaimedItemCard from '../ClaimSection/ClaimedItemCard/ClaimedItemCard';
-import ClaimHomePage from '../ClaimSection/ClaimHomePage/ClaimHomePage';
-import Login from '../AdminSection/LoginForm/Login';
+
+import { toast, ToastContainer } from 'react-toastify'
 import AB1 from '../Images/AB1.jpg'
 import AB10 from '../Images/AB10.jpg';
 import MainCanteen from '../Images/AB1MainCanteen.jpg';
 import Wings from '../Images/Wings.jpg'
-import CardUploadForm from '../AdminSection/SideBar/SidBar'
-import AddNewItem from '../AdminSection/AddNewItem/AddNewItem';
-import ViewAllCards from '../AdminSection/AlllItemsReported/ViewAllCards';
-import AddedCard from '../AdminSection/AlllItemsReported/Card/AddedCard';
+
 
 
 import { Link } from 'react-router-dom';
@@ -27,27 +21,14 @@ class Home extends React.Component {
   render() {
     return (
       <>
-        {/* <AddedCard data={{
-          catagory: 'Clothing',
-          brand: '66666666',
-          placeOfLost: '66666666',
-          reportingPersonName: '66666666',
-          reportersPhoneNumber: '66666666',
-          subCatagory: '66666666'
-        }} /> */}
-        {/* <ViewAllCards /> */}
-        {/* <AddNewItem /> */}
-        {/* <AddNewItemForm /> */}
-        {/* <ItemCard /> */}
-        {/* <CardUploadForm /> */}
         <NavBar />
-        <div className="HomePageBody">
+        <div className="HomePageBody" style={{ padding: "0 2vw" }}>
           <h1 className="HomePageHeading">
             LOST AND FOUND
           </h1>
           <hr className='underLine' />
           <div className="headingDescription">
-            Student Centers & Activities utilizes the web application, Crowdfind to manage the items placed in our lost and found inventory. The Crowdfind system can be searched for various items and allows guest to file a claim for an item at any time and from any device!
+            Student Centers & Activities utilizes the web application,  to manage the items placed in our lost and found inventory. The  system can be searched for various items and allows guest to file a claim for an item at any time and from any device!
           </div>
           <h2 className="headingTwo">
             Found an Item?
@@ -61,44 +42,54 @@ class Home extends React.Component {
           <div className="headingThreeDescription">
             To inquire about a lost item that may have been turned in:
 
-            Check the Crowdfind database in the Center below where you believe the item was lost.
+            Check the  database in the Center below where you believe the item was lost.
             If your item isn’t listed, please file a claim.
           </div>
+          <br />
           <div className="listedPlaces">
-            <div className="placeCardOnHomePage">
-              <img src={AB1} alt="" className="p1" />
-              <br />
-              <h4 className="placeCardName">
-                <Link to='/place/AB1'>Academic Block I</Link>
-              </h4>
+            <div className="placeCardOnHomePage" style={{ borderRadius: '3px', backgroundColor: "#49386b33", padding: '20px' }}>
+              <Link to='/place/AB1' style={{ textDecoration: "none" }}>
+                <img src={AB1} alt="" className="p1" />
+                <br />
+                <h4 className="placeCardName" style={{ margin: 0 }}>
+                  Academic Block I
+                </h4>
+              </Link>
             </div>
-            <div className="placeCardOnHomePage">
-              <img src={Wings} alt="" className="p1" />
-              <br />
-              <h4 className="placeCardName">
-                <Link to='/place/Hostel'>Hostels</Link>
-              </h4>
-            </div>
-            <div className="placeCardOnHomePage">
-              <img src={AB10} alt="" className="p1" />
-              <br />
-              <h4 className="placeCardName">
-                <Link to='/place/AB10'>Academic Block X</Link>
-              </h4>
-            </div>
-            <div className="placeCardOnHomePage">
-              <img src={MainCanteen} alt="" className="p1" />
-              <br />
-              <h4 className="placeCardName">
-                <Link to='/place/Canteen'>Main Canteen</Link>
 
-              </h4>
+            <div className="placeCardOnHomePage" style={{ borderRadius: '3px', backgroundColor: "#49386b33", padding: '20px' }}>
+              <Link to='/place/Hostel' style={{ textDecoration: "none" }}>
+                <img src={Wings} alt="" className="p1" />
+                <br />
+                <h4 className="placeCardName" style={{ margin: 0 }}>
+                  Hostels
+                </h4>
+              </Link>
+            </div>
+            <div className="placeCardOnHomePage" style={{ borderRadius: '3px', backgroundColor: "#49386b33", padding: '20px' }}>
+              <Link to='/place/AB10' style={{ textDecoration: "none" }}>
+                <img src={AB10} alt="" className="p1" />
+                <br />
+                <h4 className="placeCardName" style={{ margin: 0 }}>
+                  Academic Block X
+                </h4>
+              </Link>
+            </div>
+            <div className="placeCardOnHomePage" style={{ borderRadius: '3px', backgroundColor: "#49386b33", padding: '20px' }}>
+              <Link to='/place/Canteen' style={{ textDecoration: "none" }}>
+                <img src={MainCanteen} alt="" className="p1" />
+                <br />
+                <h4 className="placeCardName" style={{ margin: 0 }}>
+                  Main Canteen
+                </h4>
+              </Link>
             </div>
           </div>
+          <br />
           <div className="headingThreeDescription">
-            *Items believed to have been lost in the Student Activities Center (SAC) may be searched in the College Avenue Student Center Crowdfind database.
+            *Items believed to have been lost in the Student Activities Center (SAC) may be searched in the College Avenue Student
 
-            Lost items are kept in Student Centers for a maximum of 14 days. Guests are not permitted to search the physical lost and found inventories in the Student Centers. Individuals must fill out the claim form through Crowdfind and provide an adequate description of the item before the item will be shown to a claimant.
+            Lost items are kept in Student Centers for a maximum of 14 days. Guests are not permitted to search the physical lost and found inventories in the Student Centers. Individuals must fill out the claim form through  and provide an adequate description of the item before the item will be shown to a claimant.
 
             Guests looking for lost items should also check the University Police Department’s Lost and Found Database.
           </div>
@@ -154,11 +145,7 @@ class Home extends React.Component {
           </div>
         </div>
 
-        {/* <Login /> */}
-        {/* <ClaimHomePage /> */}
-        {/* <ItemsHome /> */}
-        {/* <CardGrid /> */}
-
+        <ToastContainer />
       </>
     )
   }

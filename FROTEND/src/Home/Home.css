@@ -1,6 +1,7 @@
 .HomePageBody {
-    width: 97vw;
+    width: 94vw;
     margin: 0 1vw;
+
 }
 
 .cardHome {
@@ -43,7 +44,7 @@
 }
 
 h2 {
-    color: rgb(255, 70, 70);
+    color: rgb(110, 59, 128);
 }
 
 @media only screen and (max-width:400px) {

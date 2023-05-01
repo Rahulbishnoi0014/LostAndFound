@@ -1,6 +1,7 @@
 import React from 'react'
 import './AddNewItem.css'
 import axios from 'axios'
+import { Navigate } from 'react-router-dom'
 import { Typography, Card, CardContent, CardMedia } from '@mui/material';
 import { TextField, Button, MenuItem } from "@mui/material";
 import InputLabel from '@mui/material/InputLabel';
@@ -30,6 +31,8 @@ class AddNewItem extends React.Component {
             wallet: ['Wallet', 'Cards Wallet'],
             jewelery: ['Earrings', 'Rings', 'Nose Rings', 'Wrist wore jewelery'],
             others: [],
+
+            goToLogin: false,
         }
     }
 
@@ -63,14 +66,40 @@ class AddNewItem extends React.Component {
             placeOfLost: placeOfLostInputText,
             reportingPersonName: reportersNameInputText,
         }
-        axios.post('http://localhost:8000/item', newItemData).then((res) => console.log(res)).catch((er) => console.log(er))
+        axios.post('http://localhost:8000/item', newItemData, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then((res) => {
+            alert("ITEM SAVED SUCCESSFULLY!!"); console.log(res)
+        })
+            .catch((er) => {
+                console.log(er)
+            })
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:8000/verifyToken', {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => {
+                if (err) {
+                    console.log(err)
+                    this.setState({ goToLogin: true })
+                }
+            })
     }
 
     date = new Date();
     render() {
-        const { reportersNameInputText, brandInputText, placeOfLostInputText, reportersPhoneNumberInputText, catagoryInputText, subCatagoryInputText, subCatagory, electronics, keys, jewelery, wallet, cards, clothing } = this.state;
+        const { goToLogin, reportersNameInputText, brandInputText, placeOfLostInputText, reportersPhoneNumberInputText, catagoryInputText, subCatagoryInputText, subCatagory, electronics, keys, jewelery, wallet, cards, clothing } = this.state;
         let emptyFieldError = (reportersNameInputText.length === 0 || brandInputText.length === 0 || placeOfLostInputText.length === 0 || reportersPhoneNumberInputText.length === 0);
-        return (<>
+        return <>
             <NavBar />
             <div className="AddNewItemsBody">
                 <div className="newItemCardBody">
@@ -313,10 +342,12 @@ class AddNewItem extends React.Component {
                 </div>
 
             </div>
-        </>)
+            {goToLogin && <Navigate to='/' />}
+        </>
     }
-
-
 }
+
+
+
 
 export default AddNewItem;

@@ -6,22 +6,43 @@ import Select from '@mui/material/Select';
 import { InputAdornment, TextField, MenuItem } from "@mui/material";
 import ClaimsCard from './ClaimedCards/ClaimedCard';
 import NavBar from '../NavBar/NavBar'
-import axios from 'axios'
+import axios from 'axios';
+import { Navigate } from 'react-router-dom'
 class Claims extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             catagoryInputText: '',
-            data: []
+            data: [],
+            goToLogin: false,
         }
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8000/claim').then((res) => { console.log(res); this.setState({ data: res.data }) }).catch((error) => console.log(error))
+        const token = localStorage.getItem('token');
+        if (token !== null) {
+            axios.get('http://localhost:8000/verifyToken', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+                .then((res) => {
+                    axios.get('http://localhost:8000/claim').then((res) => { this.setState({ data: res.data }) }).catch((error) => console.log(error))
+
+
+                })
+                .catch((err) => {
+                    console.log(err)
+                    this.setState({ goToLogin: true })
+                })
+        }
+        else {
+            this.setState({ goToLogin: true })
+        }
     }
 
     render() {
-        const { catagoryInputText } = this.state
+        const { catagoryInputText, goToLogin } = this.state
         return (<>
             <NavBar />
             <div className="catagoryOnViewAll">
@@ -60,7 +81,7 @@ class Claims extends React.Component {
 
 
             </div>
-
+            {goToLogin && <Navigate to='/' />}
         </>)
 
     }
